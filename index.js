@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
+// Load environment variables
 dotenv.config();
+
 const app = express();
 
 // Middlewares
@@ -31,11 +33,23 @@ app.use('/api/jobcards', jobCardRoutes);
 const inventoryRoutes = require('./routes/inventoryRoutes');
 app.use('/api/inventory', inventoryRoutes);
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.log("❌ MongoDB connection failed:", err));
+// MongoDB Connection
+const mongoURI = process.env.MONGO_URI;
+console.log("📦 MONGO_URI from .env:", mongoURI ? mongoURI : "❌ Not Found");
 
-// ⚠️ IMPORTANT: No app.listen()
-// Instead, export app for Vercel
+mongoose.connect(mongoURI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch(err => {
+    console.error("❌ MongoDB connection failed:", err.message);
+    process.exit(1);
+  });
+
+// ⚠️ For Vercel we don't listen here
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`🚀 API running on http://localhost:${PORT}`);
+  });
+}
+
 module.exports = app;
