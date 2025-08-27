@@ -47,8 +47,8 @@ mongoose.connect(mongoURI)
 // ⚠️ For Vercel we don't listen here
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => {
-    console.log(`🚀 API running on http://localhost:${PORT}`);
+  app.listen(PORT, (log) => {
+    console.log(`🚀 API running on http://localhost:${PORT} + ${log}`);
   });
 }
 
