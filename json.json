@@ -1,0 +1,29 @@
+{
+  "info": {
+    "name": "Close Job Card API",
+    "_postman_id": "close-jobcard-api",
+    "description": "API to close a job card with parts, labor cost, remarks, and closing date",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Close Job Card",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"repairs\": [\n    {\n      \"type\": \"Engine misfire\",\n      \"description\": \"Engine misfires when accelerating\",\n      \"parts\": [\n        { \"name\": \"Spark Plug\", \"cost\": 500, \"remark\": \"REP\" }\n      ],\n      \"laborCost\": 300,\n      \"remarks\": \"WO\",\n      \"closingDate\": \"2025-08-25\"\n    },\n    {\n      \"type\": \"Brake pad replacement\",\n      \"description\": \"Front brake pads worn out\",\n      \"parts\": [\n        { \"name\": \"Brake Pads\", \"cost\": 1200, \"remark\": \"REP\" }\n      ],\n      \"laborCost\": 400,\n      \"remarks\": \"WO\",\n      \"closingDate\": \"2025-08-25\"\n    }\n  ]\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/jobcards/close/:id", "host": ["{{baseUrl}}"], "path": ["api", "jobcards", "close", ":id"] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000" },
+    { "key": "token", "value": "" }
+  ]
+}
