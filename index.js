@@ -44,6 +44,8 @@ mongoose.connect(mongoURI)
     process.exit(1);
   });
 
+  
+
 // ⚠️ For Vercel we don't listen here
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 5000;
